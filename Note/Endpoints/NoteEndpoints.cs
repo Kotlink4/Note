@@ -35,7 +35,8 @@ namespace Note.Endpoints
             })
             .WithName("GetNoteById")
             .WithTags("Notes")
-            .Produces<NoteM>(StatusCodes.Status200OK);
+            .Produces<NoteM>(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status404NotFound);
 
             // Определение маршрута для создания новой заметки
             noteGroup.MapPost("/", async (
@@ -56,7 +57,8 @@ namespace Note.Endpoints
             })
             .WithName("CreateNote")
             .WithTags("Notes")
-            .Produces<NoteM>(StatusCodes.Status201Created);
+            .Produces<NoteM>(StatusCodes.Status201Created)
+            .Produces(StatusCodes.Status400BadRequest);
 
             // Определение маршрута для обновления существующей заметки
             noteGroup.MapPut("/{id:guid}", async (
@@ -78,10 +80,14 @@ namespace Note.Endpoints
             })
             .WithName("UpdateNote")
             .WithTags("Notes")
-            .Produces<NoteM>(StatusCodes.Status200OK);
+            .Produces<NoteM>(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status400BadRequest);
 
             // Определение маршрута для удаления заметки по идентификатору
-            noteGroup.MapDelete("/{id:guid}", async (Guid id, INoteServise noteService, CancellationToken cancellationToken) =>
+            noteGroup.MapDelete("/{id:guid}", async (
+                Guid id, 
+                INoteServise noteService, 
+                CancellationToken cancellationToken) =>
             {
                 var deleted = await noteService.DeleteNoteAsync(id, cancellationToken);
                 return deleted ? Results.NoContent() : Results.NotFound();

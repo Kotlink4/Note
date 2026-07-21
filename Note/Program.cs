@@ -21,6 +21,18 @@ builder.Services.AddScoped<INoteServise, NoteServise>();
 builder.Services.AddDbContext<NoteDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+// Настройка CORS для разрешения запросов с фронтенда
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("Frontend", policy =>
+    {
+        policy
+        .WithOrigins("http://localhost:5173") // Разрешить только этот источник
+        .AllowAnyMethod()
+        .AllowAnyHeader();
+    });
+});
+
 // Регистрация контроллеров в контейнере зависимостей
 var app = builder.Build();
 
@@ -45,6 +57,8 @@ if (app.Environment.IsDevelopment())
 
 // Настройка маршрутизации и HTTPS перенаправления
 app.UseHttpsRedirection();
+
+app.UseCors("Frontend");
 
 // Настройка маршрутов API для работы с заметками
 app.MapNoteEndpoints();
