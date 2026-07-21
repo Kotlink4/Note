@@ -11,7 +11,7 @@ namespace Note.Servises.NoteServises
 
         public Task<NoteM> CreateNoteAsync(CreateNoteRequest request, CancellationToken cancellationToken);
 
-        public Task<NoteM> UpdateNoteAsync(Guid id, UpdateNoteRequest request, CancellationToken cancellationToken);
+        public Task<NoteM?> UpdateNoteAsync(Guid id, UpdateNoteRequest request, CancellationToken cancellationToken);
 
         public Task<bool> DeleteNoteAsync(Guid id, CancellationToken cancellationToken);
     }
