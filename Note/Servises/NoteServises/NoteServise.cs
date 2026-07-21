@@ -33,6 +33,7 @@ namespace Note.Servises.NoteServises
             return notes;
         }
 
+        // Метод для получения заметки по её идентификатору
         public async Task<NoteM?> GetNoteByIdAsync(
             Guid id,
             CancellationToken cancellationToken)
@@ -43,6 +44,7 @@ namespace Note.Servises.NoteServises
             return note;
         }
 
+        // Метод для создания новой заметки в базе данных
         public async Task<NoteM> CreateNoteAsync(
             CreateNoteRequest request,
             CancellationToken cancellationToken)
@@ -61,6 +63,7 @@ namespace Note.Servises.NoteServises
             return note;
         }
 
+        // Метод для обновления существующей заметки в базе данных
         public async Task<NoteM?> UpdateNoteAsync(
             Guid id,
             UpdateNoteRequest request,
@@ -78,6 +81,7 @@ namespace Note.Servises.NoteServises
             return note;
         }
 
+        // Метод для удаления заметки из базы данных по её идентификатору
         public async Task<bool> DeleteNoteAsync(
             Guid id,
             CancellationToken cancellationToken)
