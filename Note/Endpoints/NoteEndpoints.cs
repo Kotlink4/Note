@@ -28,7 +28,6 @@ namespace Note.Endpoints
             noteGroup.MapGet("/{id:guid}", async (
                 Guid id, 
                 INoteServise noteService,
-                NoteValidator noteValidator,
                 CancellationToken cancellationToken) =>
             {
                 var note = await noteService.GetNoteByIdAsync(id, cancellationToken);
